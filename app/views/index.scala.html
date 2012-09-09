@@ -1,7 +1,16 @@
-@(message: String)
+@(messageForm: Form[Message])
+
+@import helper._
 
 @main("Welcome to Play 2.0") {
-    
-    @play20.welcome(message)
-    
+
+@form(routes.Application.rot13()) {
+<fieldset>
+    @inputText(messageForm("plainText"))
+</fieldset>
+<div class="actions">
+    <input type="submit" class="btn primary" value="Scramble">
+</div>
+}
+
 }
