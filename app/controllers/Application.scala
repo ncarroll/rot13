@@ -1,6 +1,5 @@
 package controllers
 
-import play.api._
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
@@ -20,10 +19,11 @@ object Application extends Controller {
     Ok(views.html.index(messageForm))
   }
 
-  def rot13 = Action { implicit request =>
-    messageForm.bindFromRequest().fold(
-      errors => BadRequest(html.index(errors)),
-      message => Ok(views.html.rot13(message.cipherText))
-    )
+  def rot13 = Action {
+    implicit request =>
+      messageForm.bindFromRequest().fold(
+        errors => BadRequest(html.index(errors)),
+        message => Ok(views.html.rot13(message.cipherText))
+      )
   }
 }

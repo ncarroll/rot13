@@ -4,10 +4,11 @@
 
 @main("Welcome to Play 2.0") {
 
+<h1>Enter Plaintext</h1>
 @form(routes.Application.rot13()) {
-<fieldset>
-    @inputText(messageForm("plainText"))
-</fieldset>
+
+@inputText(messageForm("plainText"))
+
 <div class="actions">
     <input type="submit" class="btn primary" value="Scramble">
 </div>
