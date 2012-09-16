@@ -16,14 +16,10 @@ object Application extends Controller {
   )
 
   def index = Action {
-    Ok(views.html.index(messageForm))
+    Ok(views.html.index())
   }
 
   def rot13 = Action {
-    implicit request =>
-      messageForm.bindFromRequest().fold(
-        errors => BadRequest(html.index(errors)),
-        message => Ok(views.html.rot13(message.cipherText))
-      )
+    Ok(views.html.index())
   }
 }
