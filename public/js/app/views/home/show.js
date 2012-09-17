@@ -7,9 +7,7 @@ define([
     var ShowHomeView = Backbone.View.extend({
         el: $('#content'),
         render: function() {
-            var data = {};
-            var compiledTemplate = _.template(showHomeTemplate, data);
-            this.el.append(compiledTemplate);
+            $(this.el).html(showHomeTemplate);
         }
     });
 

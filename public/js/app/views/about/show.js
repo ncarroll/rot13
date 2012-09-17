@@ -7,9 +7,7 @@ define([
     var ShowAboutView = Backbone.View.extend({
         el: $('#content'),
         render: function(){
-            var data = {};
-            var compiledTemplate = _.template(showAboutTemplate, data);
-            this.el.append(compiledTemplate);
+            $(this.el).html(showAboutTemplate);
         }
     });
 

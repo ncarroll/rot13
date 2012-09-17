@@ -2,8 +2,10 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'views/home/show'
-], function($, _, Backbone, ShowHomeView) {
+    'app/views/header/show',
+    'app/views/home/show',
+    'app/views/about/show'
+], function($, _, Backbone, ShowHeaderView, ShowHomeView, ShowAboutView) {
     var Router = Backbone.Router.extend({
         routes: {
             ""     : "showHome",
@@ -11,12 +13,18 @@ define([
             '*actions': 'defaultAction'
         },
 
+        initialize: function(){
+            ShowHeaderView.render();
+        },
+
         showHome: function(){
             ShowHomeView.render();
+            ShowHeaderView.selectMenuItem('home-menu');
         },
 
         showAbout: function(){
             ShowAboutView.render();
+            ShowHeaderView.selectMenuItem('about-menu');
         },
 
         defaultAction: function(actions){
