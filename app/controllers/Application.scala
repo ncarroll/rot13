@@ -1,11 +1,10 @@
 package controllers
 
 import play.api.mvc._
-import play.api.data._
-import play.api.data.Forms._
 import play.api.libs.json.Json._
 
 import models._
+import play.api.Logger
 
 object Application extends Controller {
 
@@ -15,10 +14,11 @@ object Application extends Controller {
 
   def rot13 = Action(parse.json) {
     request =>
+      Logger.info(request.toString())
       (request.body \ "plainText").asOpt[String].map {
         plainText =>
           Ok(toJson(
-            Map("status" -> "OK", "cipherText" -> (Message(plainText).cipherText))
+            Map("cipherText" -> (Message(plainText).cipherText))
           ))
       }.getOrElse {
         BadRequest(toJson(

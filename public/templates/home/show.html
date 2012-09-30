@@ -1,16 +1,13 @@
 <h1>Enter Plain Text</h1>
 
-<form action="/api/rot13" method="POST">
-    <dl class=" " id="plainText_field">
-        <dt><label for="plainText">Plain Text</label></dt>
-        <dd>
-            <input type="text" id="plainText" name="plainText" value="">
-        </dd>
-        <dd class="info">Required</dd>
-    </dl>
+<div id="new-message">
+<form>
+    <input id="plain-text" type="text">
 
     <div class="actions">
-        <input type="submit" class="btn primary" value="Scramble">
+        <input type="submit" value="Scramble">
     </div>
-
 </form>
+</div>
+
+<ul id="messages"></ul>
