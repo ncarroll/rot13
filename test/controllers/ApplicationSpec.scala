@@ -14,7 +14,31 @@ class ApplicationSpec extends Specification {
       status(result) must equalTo(OK)
     }
 
-    "scramble message using ROT13 cipher" in {
+    "rotate aaa to nnn" in {
+      val plainTextAsJson = Json.toJson(Map("plainText" -> "aaa"))
+
+      val Some(result) = routeAndCall(FakeRequest(POST, "/api/rot13").withJsonBody(plainTextAsJson))
+
+      val expectedResult = Json.toJson(Map("cipherText" -> "nnn"))
+
+      status(result) must equalTo(OK)
+      contentType(result) must beSome("application/json")
+      contentAsString(result) must equalTo(expectedResult.toString())
+    }
+
+    "rotate bbbb to oooo" in {
+      val plainTextAsJson = Json.toJson(Map("plainText" -> "bbbb"))
+
+      val Some(result) = routeAndCall(FakeRequest(POST, "/api/rot13").withJsonBody(plainTextAsJson))
+
+      val expectedResult = Json.toJson(Map("cipherText" -> "oooo"))
+
+      status(result) must equalTo(OK)
+      contentType(result) must beSome("application/json")
+      contentAsString(result) must equalTo(expectedResult.toString())
+    }
+
+    "rotate ppppp to ccccc" in {
       val plainTextAsJson = Json.toJson(Map("plainText" -> "aaa"))
 
       val Some(result) = routeAndCall(FakeRequest(POST, "/api/rot13").withJsonBody(plainTextAsJson))
