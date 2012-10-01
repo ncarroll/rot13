@@ -4,7 +4,6 @@ import play.api.mvc._
 import play.api.libs.json.Json._
 
 import models._
-import play.api.Logger
 
 object Application extends Controller {
 
@@ -12,18 +11,36 @@ object Application extends Controller {
     Ok(views.html.index())
   }
 
-  def rot13 = Action(parse.json) {
+  def rot13 = Action {
     request =>
-      Logger.info(request.toString())
-      (request.body \ "plainText").asOpt[String].map {
-        plainText =>
-          Ok(toJson(
-            Map("cipherText" -> (Message(plainText).cipherText))
-          ))
+      request.body.asJson.map {
+        json =>
+          (json \ "plainText").asOpt[String].map {
+            plainText =>
+              Ok(toJson(Map("cipherText" -> (Message(plainText).cipherText)))).as("application/json")
+          }.getOrElse{
+            BadRequest(toJson(
+              Map("status" -> "Error", "message" -> "Missing parameter [cipherText]")
+            )).as("application/json")
+          }
       }.getOrElse {
         BadRequest(toJson(
           Map("status" -> "Error", "message" -> "Missing parameter [cipherText]")
-        ))
+        )).as("application/json")
       }
   }
+
+  //  def rot13 = Action(parse.json) {
+  //    request =>
+  //      (request.body \ "plainText").asOpt[String].map {
+  //        plainText =>
+  //          Ok(toJson(
+  //            Map("cipherText" -> (Message(plainText).cipherText))
+  //          )).as("application/json")
+  //      }.getOrElse {
+  //        BadRequest(toJson(
+  //          Map("status" -> "Error", "message" -> "Missing parameter [cipherText]")
+  //        )).as("application/json")
+  //      }
+  //  }
 }
